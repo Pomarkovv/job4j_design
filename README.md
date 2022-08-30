@@ -65,5 +65,3 @@
 2.5.5 - DIP
 
 2.5.6 - Test questions
-
-
