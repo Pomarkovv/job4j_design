@@ -38,21 +38,21 @@ class BoxTest {
     }
 
     @Test
-    void ThenVertIsMinusOneWhenFalse() {
+    void thenVertIsMinusOneWhenFalse() {
         Box box = new Box(-1, 10);
         boolean rsl = box.isExist();
         assertThat(rsl).isFalse();
     }
 
     @Test
-    void ThenVertIs4AndEdgeIs10AreaWas173() {
+    void thenVertIs4AndEdgeIs10AreaWas173() {
         Box box = new Box(4, 10);
         double ar = box.getArea();
         assertThat(ar).isEqualTo(173.2d, withPrecision(0.006d));
     }
 
     @Test
-    void ThenVertIs8AndEdgeIs10AreaWas600() {
+    void thenVertIs8AndEdgeIs10AreaWas600() {
         Box box = new Box(8, 10);
         double ar = box.getArea();
         assertThat(ar).isEqualTo(600);
