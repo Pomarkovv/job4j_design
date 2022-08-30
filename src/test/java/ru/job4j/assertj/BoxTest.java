@@ -58,3 +58,4 @@ class BoxTest {
         assertThat(ar).isEqualTo(600);
     }
 }
+
