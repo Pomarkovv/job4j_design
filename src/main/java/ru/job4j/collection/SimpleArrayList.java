@@ -14,7 +14,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         this.container = (T[]) new Object[capacity];
     }
 
-    private void grow(int contLength) {
+    private void grow(int containerLength) {
         container = Arrays.copyOf(container, container.length * 2);
     }
 
@@ -29,29 +29,26 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public T set(int index, T newValue) {
-        T deletedEl = get(index);
+        T removedValue = get(index);
         container[index] = newValue;
-        modCount++;
-        return deletedEl;
+        return removedValue;
     }
 
     @Override
     public T remove(int index) {
-        T deletedEl = get(index);
+        T removedValue = get(index);
         size--;
         if (size > index) {
             System.arraycopy(container, index + 1, container, index, size - index);
         }
         container[size] = null;
         modCount++;
-        return deletedEl;
+        return removedValue;
     }
 
     @Override
     public T get(int index) {
-        if (index > size) {
-            throw new IndexOutOfBoundsException();
-        }
+        Objects.checkIndex(index, size);
         return container[index];
     }
 
