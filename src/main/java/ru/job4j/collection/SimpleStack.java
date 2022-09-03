@@ -7,10 +7,16 @@ public class SimpleStack<T> {
     private int size = 0;
 
     public T pop() {
+        size--;
         return linked.deleteFirst();
     }
 
     public void push(T value) {
         linked.addFirst(value);
+        size++;
+    }
+
+    public Integer getSize() {
+        return size;
     }
 }
