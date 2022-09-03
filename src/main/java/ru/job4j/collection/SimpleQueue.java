@@ -22,7 +22,7 @@ public class SimpleQueue<T> {
         in.push(value);
     }
 
-    public boolean isEmpty(SimpleStack<T> stack) {
+    private boolean isEmpty(SimpleStack<T> stack) {
         return stack.getSize() == 0;
     }
 }
