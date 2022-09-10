@@ -35,4 +35,5 @@ public class LogFilter {
         List<String> log = LogFilter.filter("log.txt");
         save(log, "404.txt");
     }
+
 }
