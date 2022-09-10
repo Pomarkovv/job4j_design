@@ -13,7 +13,6 @@ public class LogFilter {
                     .filter(e -> e.contains(" 404 "))
                     .collect(Collectors.toList());
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -26,14 +25,13 @@ public class LogFilter {
                 new BufferedOutputStream(
                         new FileOutputStream(file)
                 ))) {
-            log.forEach(el -> out.write(el + System.lineSeparator()));
+            log.forEach(out::println);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
-        LogFilter logFilter = new LogFilter();
         List<String> log = LogFilter.filter("log.txt");
         save(log, "404.txt");
     }
