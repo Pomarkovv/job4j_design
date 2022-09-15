@@ -14,7 +14,7 @@ public class Analizy {
                     out.append(line.split(" ")[1]).append(';');
                     errorOnServer = false;
                 } else if (!errorOnServer && !line.startsWith("400") && !line.startsWith("500")) {
-                    out.append(line.split(" ")[1]).append(';').append(System.lineSeparator());
+                    out.append(line.split(" ")[1] + System.lineSeparator());
                     errorOnServer = true;
                 }
             }
