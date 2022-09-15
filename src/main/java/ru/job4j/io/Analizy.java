@@ -11,10 +11,10 @@ public class Analizy {
             while (read.ready()) {
                 String line = read.readLine();
                 if (errorOnServer && (line.startsWith("400") || line.startsWith("500"))) {
-                    out.write(line.split(" ")[1] + ";");
+                    out.append(line.split(" ")[1]).append(';');
                     errorOnServer = false;
                 } else if (!errorOnServer && !line.startsWith("400") && !line.startsWith("500")) {
-                    out.write(line.split(" ")[1] + System.lineSeparator());
+                    out.append(line.split(" ")[1]).append(';').append(System.lineSeparator());
                     errorOnServer = true;
                 }
             }
