@@ -17,7 +17,6 @@ public class EchoServer {
                     if (str.contains("/msg=Exit")) {
                         System.out.println(str);
                         server.close();
-                        break;
                     } else if (str.contains("/msg=Hello")) {
                         out.write("Hello, dear friend.".getBytes());
                     } else {
@@ -25,8 +24,8 @@ public class EchoServer {
                         for (str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
                             System.out.println(str);
                         }
-                        out.flush();
                     }
+                    out.flush();
                 }
             }
         }
