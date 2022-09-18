@@ -1,0 +1,8 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<programmer sex="true" age="20">
+    <cv biography="Bla!Bla!Bla!"/>
+    <statuses>
+        <status>Siberian Federal University</status>
+        <status>Alone</status>
+    </statuses>
+</programmer>
