@@ -16,7 +16,8 @@ public class UsageLog4j {
         char symb = 'X';
         byte byteNum = 2;
         short shortNum = 10;
+        long longNum = 12344L;
 
-        LOG.debug("User info name : {}, age : {}, dAge : {}, fAge : {}, isStudent : {}, symb : {}, byteNum : {}, shortNum : {}", name, age, dAge, fAge, isStudent, symb, byteNum, shortNum);
+        LOG.debug("User info name : {}, age : {}, dAge : {}, fAge : {}, isStudent : {}, symb : {}, byteNum : {}, shortNum : {}, longNum : {}", name, age, dAge, fAge, isStudent, symb, byteNum, shortNum, longNum);
     }
 }
