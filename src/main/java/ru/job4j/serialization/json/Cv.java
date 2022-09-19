@@ -23,7 +23,7 @@ public class Cv {
     public String toString() {
         return "Cv{"
                 +
-                "biography='"
+                "biography:'"
                 + biography
                 + '\''
                 +

@@ -1,14 +1,9 @@
 package ru.job4j.serialization.json;
 
-import netscape.javascript.JSException;
-import netscape.javascript.JSObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javax.xml.bind.*;
 import javax.xml.bind.annotation.*;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,6 +37,11 @@ public class Programmer {
         return cv.biography;
     }
 
+    public String[] getStatuses() {
+        return this.statuses;
+    }
+
+
     @Override
     public String toString() {
         return "Programmer{"
@@ -60,12 +60,12 @@ public class Programmer {
         list.add("alone");
         JSONArray jsonStatuses = new JSONArray(list);
 
-        final Programmer programmer = new Programmer(false, 30, new Cv("bla bla bla!"), new String[] {"Siberian Federal University", "alone"});
+        final Programmer programmer = new Programmer(false, 20, new Cv("bla bla bla!"), new String[] {"Siberian Federal University", "alone"});
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("sex", programmer.isSex());
         jsonObject.put("age", programmer.getAge());
-        jsonObject.put("biography", jsonCv());
-        jsonObject.put("statuses", jsonStatuses);
+        jsonObject.put("biography", jsonBiography);
+        jsonObject.put("statuses", programmer.statuses);
 
         System.out.println(jsonObject.toString());
 
