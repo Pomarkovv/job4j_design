@@ -3,24 +3,32 @@ package ru.job4j.serialization.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class Main {
-    public static void main(String[] args) {
-        final Programmer programmer = new Programmer(true, 20, new Cv("bla bla bla"), new String[] {"Siberian Federal University", "alone"});
-        final Gson json = new GsonBuilder().create();
-        System.out.println(json.toJson(programmer));
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 
-        final String programmerJson =
-                "{"
-                        + "\"sex\":true,"
-                        + "\"age\":30,"
-                        + "\"cv\":"
-                        + "{"
-                        + "\"biography\":\"Bla! bla bla !!!\""
-                        + "},"
-                        + "\"statuses\":"
-                        + "[\"Moscow federal university\",\"alone\"]"
-                        + "}";
-        final Programmer programmerMod = json.fromJson(programmerJson, Programmer.class);
-        System.out.println(programmerMod);
+public class Main {
+    public static void main(String[] args) throws JAXBException, IOException {
+        final Programmer programmer = new Programmer(true, 20, new Cv("Bla Bla Bla!"), new String[] {"SFU", "alone"});
+
+        JAXBContext context = JAXBContext.newInstance(Programmer.class);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        String xml = "";
+
+        try (StringWriter writer = new StringWriter()) {
+            marshaller.marshal(programmer, writer);
+            xml = writer.getBuffer().toString();
+            System.out.println(xml);
+        }
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+        try (StringReader reader = new StringReader(xml)) {
+            Programmer result = (Programmer) unmarshaller.unmarshal(reader);
+            System.out.println(result);
+        }
     }
 }
