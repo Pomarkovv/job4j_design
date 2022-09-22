@@ -1,1 +1,0 @@
-insert into cinema(name, year, oskar) values ('Геракл', 2002, false);
