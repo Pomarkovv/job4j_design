@@ -22,16 +22,31 @@ insert into product(name, type_id, expired_date, price) values ('brazhnoe', 2, '
 insert into product(name, type_id, expired_date, price) values ('parmezan', 1, '2023-05-25', 900);
 insert into product(name, type_id, expired_date, price) values ('snow', 3, '2022-09-29', 110);
 
-select * from product join type tp on type_id = tp.id where tp.name LIKE 'cheese';
+select * from product join type tp
+on type_id = tp.id
+where tp.name LIKE 'cheese';
 
-select * from product where name LIKE 'milk';
+select * from product
+where name LIKE 'milk';
 
-select max(price) from product;
+select * from product
+where price = (select max(price) from product);
 
-select tp.name, count(*) from product p join type tp on type_id = tp.id group by tp.name;
+select tp.name, count(*) from product p join type tp
+on type_id = tp.id
+group by tp.name;
 
-select * from product join type tp on type_id = tp.id where tp.name LIKE 'chees' and tp.name LIKE 'milk';
+select * from product join type tp
+on type_id = tp.id
+where tp.name LIKE 'chees' or tp.name LIKE 'milk';
 
-select tp.name from product p join type tp on p.type_id = tp.id group by tp.name having count(*) < 10;
+select tp.name from product p join type tp
+on p.type_id = tp.id
+group by tp.name
+having count(*) < 10;
 
 select * from type join product on product.type_id = type.id;
+
+select * from product
+where expired_date < current_timestamp;
+
