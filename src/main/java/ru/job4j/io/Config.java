@@ -17,7 +17,6 @@ public class Config {
         this.path = path;
     }
 
-
     public void load() throws IllegalArgumentException {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             while (read.ready()) {
