@@ -3,9 +3,10 @@ package ru.job4j.io;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringJoiner;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Config {
 
@@ -16,16 +17,16 @@ public class Config {
         this.path = path;
     }
 
-    public void load() {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(this.path))) {
-            while (bufferedReader.ready()) {
-                String readLine = bufferedReader.readLine();
-                if (!readLine.startsWith("#") && readLine.length() > 0) {
-                    String[] lines = readLine.split("=", 2);
-                    if (lines.length != 2 || readLine.startsWith("=")) {
-                        throw new IllegalArgumentException();
+    public void load() throws IllegalArgumentException {
+        try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
+            while (read.ready()) {
+                String line = read.readLine();
+                if (!line.startsWith("#") && line.length() > 0) {
+                    String[] splitlines = line.split("=", 2);
+                    if (splitlines.length != 2 || line.startsWith("=")) {
+                        throw new IllegalArgumentException("Wrong format!");
                     }
-                    values.put(lines[0], lines[1]);
+                    values.put(splitlines[0], splitlines[1]);
                 }
             }
         } catch (IOException e) {
@@ -49,8 +50,6 @@ public class Config {
     }
 
     public static void main(String[] args) {
-        System.out.println(new Config("./data/pair_without_comment.properties"));
-        System.out.println();
+        System.out.println(new Config("./io.data/app.properties"));
     }
-
 }
