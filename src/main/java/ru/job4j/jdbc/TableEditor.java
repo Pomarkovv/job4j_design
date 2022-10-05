@@ -1,5 +1,7 @@
 package ru.job4j.jdbc;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 import java.util.StringJoiner;
@@ -31,23 +33,23 @@ public class TableEditor implements AutoCloseable {
     }
 
     public void createTable(String tableName) {
-        getStatement("create table if not exists " + tableName + "(id serial primary key, name varchar(255));");
+        getStatement(String.format("create table if exists %s(%s);", tableName, "id serial primary key"));
     }
 
     public void dropTable(String tableName) {
-        getStatement("drop table " + tableName);
+        getStatement(String.format("drop table %s", tableName));
     }
 
     public void addColumn(String tableName, String columnName, String type) {
-        getStatement("alter table " + tableName + " ADD " + columnName + " " + type);
+        getStatement(String.format("alter table %s ADD %s %s", tableName, columnName, type));
     }
 
     public void dropColumn(String tableName, String columnName) {
-        getStatement("alter table " + tableName + " drop column " + columnName);
+        getStatement(String.format("alter table %s drop column %s", tableName, columnName));
     }
 
     public void renameColumn(String tableName, String columnName, String newColumnName) {
-        getStatement("alter table " + tableName + " rename column " + columnName + " to " + newColumnName);
+        getStatement(String.format("alter table %s rename column %s to %s", tableName, columnName, newColumnName));
     }
 
     public static String getTableScheme(Connection connection, String tableName) throws Exception {
@@ -68,11 +70,31 @@ public class TableEditor implements AutoCloseable {
         }
         return buffer.toString();
     }
-
     @Override
     public void close() throws Exception {
         if (connection != null) {
             connection.close();
         }
     }
-}
+
+    public static void main(String[] args) {
+        Properties config = new Properties();
+        try (InputStream fis = new FileInputStream("./src/main/resources/app.properties")) {
+            config.load(fis);
+            try (TableEditor testTable = new TableEditor(config)) {
+                testTable.createTable("testDB");
+                System.out.println(getTableScheme(testTable.connection, "testDB"));
+                testTable.addColumn("testDB", "date", "date");
+                System.out.println(getTableScheme(testTable.connection, "testDB"));
+                testTable.dropColumn("testDB", "date");
+                System.out.println(getTableScheme(testTable.connection, "testDB"));
+                testTable.renameColumn("testDB", "id", "index");
+                System.out.println(getTableScheme(testTable.connection, "testDB"));
+                testTable.dropTable("testDB");
+                System.out.println(getTableScheme(testTable.connection, "testDB"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    }
