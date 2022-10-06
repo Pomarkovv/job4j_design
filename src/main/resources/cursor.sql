@@ -26,10 +26,8 @@ insert into products (name, count, price) VALUES ('product_19', 19, 95);
 insert into products (name, count, price) VALUES ('product_20', 20, 100);
 
 start TRANSACTION;
-BEGIN;
 DECLARE cursor_products SCROLL cursor for select * from products;
 MOVE FORWARD 20 from cursor_products;
-FETCH FROM cursor_products;
 FETCH BACKWARD 20 from cursor_products;
 close cursor_products;
 COMMIT;
