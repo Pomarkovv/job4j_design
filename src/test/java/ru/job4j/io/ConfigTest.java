@@ -21,4 +21,20 @@ class ConfigTest {
         config.load();
         assertThat(config.value("13")).isEqualTo("=Ivan");
     }
+
+    @Test
+    void noKey() {
+        String path = "./data/no_key.properties";
+        Config config = new Config(path);
+        config.load();
+        assertThatIllegalArgumentException();
+    }
+
+    @Test
+    void noValues() {
+        String path = "./data/no_value.properties";
+        Config config = new Config(path);
+        config.load();
+        assertThatIllegalArgumentException();
+    }
 }

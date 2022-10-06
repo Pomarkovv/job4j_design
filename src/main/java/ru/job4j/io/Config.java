@@ -21,9 +21,9 @@ public class Config {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             while (read.ready()) {
                 String line = read.readLine();
-                if (!line.startsWith("#") && line.length() > 0) {
+                if (!line.startsWith("#") && line.isBlank()) {
                     String[] splitlines = line.split("=", 2);
-                    if (splitlines.length != 2 || line.startsWith("=")) {
+                    if (splitlines.length != 2 || line.startsWith("=") || line.endsWith("=")) {
                         throw new IllegalArgumentException("Wrong format!");
                     }
                     values.put(splitlines[0], splitlines[1]);
